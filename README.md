@@ -115,8 +115,6 @@ This is in continuation to this [Article] where we had describe the same for dep
 
 ![conceptual-cluster-connect](./Assets/conceptual-cluster-connect.png)
 
-[Ref: Cluster Connect](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-cluster-connect#architecture)
-
 - *cluster-connect* is a reverse-proxy agent running on the CAPZ cluster, established a session with *Azure Arc Service*
 - Any call to K8s API server would be forwarded to *cluster-connect* agent which passes the request to *kube-aad-proxy*
 - *kube-aad-proxy* reforms Azure AD authentication and if successful forwards the request to API Server for the intended cluster
@@ -322,7 +320,7 @@ This is in continuation to this [Article] where we had describe the same for dep
 
     ![conceptual-extensions](./Assets/conceptual-extensions.png)
 
-    [*Ref: K8s-Extensions*](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions#architecture)
+    
 
     - Different extensions for different Service types to be deployed on the K8s Cluster
       - *App Service Extension* - Includes Web Apps/API Apps, Logic Apps, Function Apps
@@ -369,7 +367,7 @@ This is in continuation to this [Article] where we had describe the same for dep
 
       ![conceptual-arc-platform-layers](./Assets/conceptual-arc-platform-layers.png)
 
-      [*Ref: Custom Location*](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations#architecture)
+      
 
       - Target Location for all services
       - As evident from the diagram - it is a layer around Azure Arc enabled K8s
@@ -477,7 +475,26 @@ This is what we would like to achieve in this exercise on the Custom Location cr
 
 
 
-![logicapp-1](./Assets/logicapp-2.png)
+```json
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "WORKFLOWS_TENANT_ID": "",
+    "WORKFLOWS_SUBSCRIPTION_ID": "",
+    "WORKFLOWS_RESOURCE_GROUP_NAME": "arc-services-rg",
+    "WORKFLOWS_LOCATION_NAME": "eastus",
+    "WORKFLOWS_MANAGEMENT_BASE_URI": "https://management.azure.com/",
+    "WORKFLOWAPP_AAD_CLIENTID": "",
+    "WORKFLOWAPP_AAD_TENANTID": "",
+    "WORKFLOWAPP_AAD_CLIENTSECRET": "",
+    "WORKFLOWAPP_AAD_OBJECTID": "",
+    "AzureBlob_connectionString": "",
+    "outlook-connectionKey": ""
+  }
+}
+```
 
 
 
@@ -520,8 +537,6 @@ This is what we would like to achieve in this exercise on the Custom Location cr
   ![eventgrid-4](./Assets/eventgrid-4.png)
 
   
-
-  **<u>Arc Enabled Services</u>**
 
 - Make sure to Select the EventGrid service from the dropdown before creating the EventGrid Topic - otherwise Topic creation would fail with Forbidden error; as it would not recognize the target deployment Location - which should be the *Custom Location* in the case
 
